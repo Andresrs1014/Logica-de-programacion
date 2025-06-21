@@ -1,13 +1,54 @@
- 
+class Participant():
+    
+    def __init__(self, name, country):
+        self.name = name
+        self.country = country
 
 class Olimpycs:
     
     def __init__(self):
-        pass
+        self.events = []
+        self.participants = {}
     
     
     def register_event(self):
-        pass
+        event = input('introduce el nombre del evento deportivo').strip
+        
+        if event in self.events:
+            print(f'El evento {event} ya ha sido registrado. ')
+        else:
+            print(f'El evento {event} ha sido registrado')
+        
+        self.events.append(event)
+        
+    def register_participant(self):
+        
+        if not self.events:
+            print('No hay eventos registrados, registra uno antes de registrar participantes')
+            return 
+        
+        name = input('Introduce el nombre del participante: ').strip
+        country = input('Introducre el pais del participante: ').strip
+        participant = Participant(name, country)
+        
+        print('Eventos deportivos disponibles disponibles')
+        
+        for index, event in enumerate(self.events):
+            print(f'{index + 1}. {event}')
+            
+        event_choice = int(input('Selecciona el numero del evento para asignar al participante: ')) - 1
+    
+        if event_choice >= 0 and event_choice < len(self.events):
+            
+            event = self.events[event_choice]
+            
+            if participant in self.participants[event]:
+                print(f'El participante {participant} del pais {country} ya ha sido registrado en {event}, no puede ser registrado nuevamente ')
+            else:
+                self.participants[event].append(participant)
+                print(f'El participante {participant} del pais {country} ha sido registrado en {event}')
+            
+            
        
 
 
@@ -15,7 +56,7 @@ class Olimpycs:
 
  
  
- 
+olimpycs = Olimpycs()
  
 print('\n Simulador de Juegos Olimpicos ')
 
@@ -35,7 +76,7 @@ while True:
     
     match option:
         case '1':
-            pass
+            olimpycs.register_event()
         case '2':
             pass
         case '3':
